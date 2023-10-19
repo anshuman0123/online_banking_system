@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Account Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            margin: 0;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .balance {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 24px;
+        }
+
+        .transaction-container {
+            background-color: #fff;
+            margin: 20px 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .transaction-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .transaction {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'navbar.html'%}
+    <div class="container">
+        <h1>Welcome {{data['name']}}</h1>
+        <div class="balance">Your Balance: ₹{{data['balance'][0]}}</div>
+        <div class="transaction-container">
+            <div class="transaction-header">Sent Transactions</div>
+            {% for i in data['transactions'] %}
+            {% if i[0] == data['username'] %}
+            <div class="transaction">
+                <p>Sent to: {{i[1]}}</p>
+                <p>Amount: ₹{{i[2]}}</p>
+                <p>Time: {{i[3]}}</p>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="transaction-container">
+            <div class="transaction-header">Received Transactions</div>
+            {% for i in data['transactions'] %}
+            {% if i[1] == data['username'] %}
+            <div class="transaction">
+                <p>Received from: {{i[0]}}</p>
+                <p>Amount: ₹{{i[2]}}</p>
+                <p>Time: {{i[3]}}</p>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="btn-container">
+            <a href="/update_credentials" class="btn">Update Credentials</a>
+            <a href="/transaction" class="btn">Send Money</a>
+        </div>
+    </div>
+</body>
+
+</html>

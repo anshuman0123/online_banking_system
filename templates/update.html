@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update User Credentials</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            width: 40%;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'navbar.html'%}
+    <form action="/update_credentials" method="post">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email" value="{{data['email']}}">
+
+        <label for="phone_no">Phone Number</label>
+        <input type="text" name="phone_no" id="phone_no" value="{{data['phone_no']}}">
+
+        <label for="first_name">First Name</label>
+        <input type="text" name="first_name" id="first_name" value="{{data['first_name']}}">
+
+        <label for="last_name">Last Name</label>
+        <input type="text" name="last_name" id="last_name" value="{{data['last_name']}}">
+
+        <label for="address">Address</label>
+        <input type="text" name="address" id="address" value="{{data['address']}}">
+
+        <label for="balance">Balance</label>
+        <input type="number" name="balance" id="balance" value="{{data['balance']}}">
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" value="{{data['password']}}">
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>

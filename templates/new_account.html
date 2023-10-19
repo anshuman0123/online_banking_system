@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #eee;
+    }
+
+    form {
+      width: 50%;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    input[type="submit"] {
+      background-color: #000;
+      color: #fff;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  {% include 'navbar.html'%}
+  {% if message %}
+   <h1>{{message}}</h1>
+  {% endif %}
+  <form method="POST" action="/new_account">
+    <label>First name</label>
+    {{ form.first_name }}
+    <br>
+    <label>Last name</label>
+    {{ form.last_name }}
+    <br>
+    <label>Account type</label>
+    {{ form.type_account }}
+    <br>
+    <label>Address</label>
+    {{ form.address }}
+    <br>
+    <label>Balance</label>
+    {{ form.balance }}
+    <br>
+    <label for="">Password</label>
+    {{ form.password }}
+    <br>
+    <label for="">Email</label>
+    {{ form.email }}
+    <br>
+    <label for="">Phone number</label>
+    {{ form.phone_no }}
+    <br>
+    <input type="submit" value="Submit">
+  </form>
+  <script>
+    // Get all input fields in the form
+      const inputFields = document.querySelectorAll('input');
+
+      // Loop through all input fields and add the `required` constraint
+      inputFields.forEach(inputField => {
+        inputField.required = true;
+      });
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Admin Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .container {
+            max-width: 100%; /* Adjusted to match the width of the accounts table */
+            margin: 20px auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 24px;
+            cursor: pointer;
+            margin: 0;
+            padding: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+        .content {
+            display: block;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+        }
+
+        th, td {
+            padding: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .open {
+            max-height: 1000px;
+        }
+    </style>
+</head>
+<body>
+    {% if not data %}
+            <form action="/admin" method="post">
+                <label for="id">ID</label>
+                <input type="text" name="id" id="id">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+                <input type="submit" value="Submit">
+            </form>
+        {% else %}
+    <header>
+        <h1>Bank Admin Panel</h1>
+    </header>
+    <div class="container">
+        <div class="section">
+            <h1 onclick="toggleSection('logs')">Logs</h1>
+            <div class="content" id="logs">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Information</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in data['logs'] %}
+                            <tr>
+                                <td>{{ i[0] }}</td>
+                                <td>{{ i[1] }}</td>
+                                <td>{{ i[2] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="section">
+            <h1 onclick="toggleSection('accounts')">Accounts</h1>
+            <div class="content" id="accounts">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Address</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Amount</th>
+                            <th>Type</th>
+                            <th>Account No</th>
+                            <th>Password</th> <!-- Added 'Password' header -->
+                            <th>Email ID</th>
+                            <th>Phone No</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in data['accounts'] %}
+                            <tr>
+                                <td>{{ i[0] }}</td>
+                                <td>{{ i[1] }}</td>
+                                <td>{{ i[2] }}</td>
+                                <td>{{ i[3] }}</td>
+                                <td>{{ i[4] }}</td>
+                                <td>{{ i[5] }}</td>
+                                <td>{{ i[8] }}</td> <!-- Using the index for 'password' -->
+                                <td>{{ i[6] }}</td>
+                                <td>{{ i[7] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="section">
+            <h1 onclick="toggleSection('transactions')">Transactions</h1>
+            <div class="content" id="transactions">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sender</th>
+                            <th>Receiver</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in data['transactions'] %}
+                            <tr>
+                                <td>{{ i[0] }}</td>
+                                <td>{{ i[1] }}</td>
+                                <td>{{ i[2] }}</td>
+                                <td>{{ i[3] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+    <script>
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.classList.toggle('open');
+        }
+    </script>
+    {% endif %}
+</body>
+</html>
